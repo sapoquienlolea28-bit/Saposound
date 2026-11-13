@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mi radio propia</title>
+<title>Sapoclaude</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0e0e13">
+<meta name="theme-color" content="#0a0a0a">
 <style>
-:root{--bg:#0e0e13;--surf:#1a1a23;--surf2:#272735;--ink:#fff;--mute:#a9a9bd;--acc:#ff4f8b;--acc2:#ffb347;--line:#2c2c3a;--on:#fff;--hi:#2b1c30;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--bg:#0a0a0a;--surf:#171717;--surf2:#242424;--ink:#fff;--mute:#b0a8a2;--acc:#d97757;--acc2:#f0a45d;--line:#2c2724;--on:#fff;--hi:#2a1a12;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
-body{background:linear-gradient(180deg,#4a1f55 0,#0e0e13 280px) no-repeat,var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column}
+body{background:linear-gradient(180deg,#3a1c0e 0,#0a0a0a 280px) no-repeat,var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column}
 button,input{font:inherit;color:inherit}
 button{background:none;border:0;cursor:pointer;padding:8px}
 :focus-visible{outline:2px solid var(--acc2);outline-offset:2px}
@@ -43,13 +43,13 @@ details details{margin-left:10px}details details summary{font-weight:400;color:v
 .empty{color:var(--mute);padding:28px 8px;text-align:center}
 label{display:block;margin:12px 0 4px;font-size:13px;color:var(--mute)}
 .note{font-size:12px;color:var(--mute);padding:4px 0}
-#pl{margin:0 8px 6px;background:linear-gradient(90deg,#33243f,#2a2a3c);border-radius:12px;padding:8px 10px}
+#pl{margin:0 8px 6px;background:linear-gradient(90deg,#3a2418,#242424);border-radius:12px;padding:8px 10px}
 #pl .t{display:flex;align-items:center;gap:8px}
 .grow{flex:1;min-width:0;display:flex;gap:10px;align-items:center;cursor:pointer}
 .pbtn{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:grid;place-items:center;font-size:18px;padding:0;flex:none}
 .pbtn.sm{width:38px;height:38px;font-size:15px}
 .bar{height:6px;background:#ffffff30;border-radius:3px;margin-top:6px;cursor:pointer;overflow:hidden}.bar.thin{height:3px;pointer-events:none}.bar i{display:block;height:100%;background:#fff;width:0}
-nav{display:flex;background:#0e0e13ee}
+nav{display:flex;background:#0a0a0aee}
 nav button{flex:1;padding:12px 0;font-size:12px;color:var(--mute)}
 nav button.on{color:#fff;font-weight:800;box-shadow:inset 0 3px var(--acc)}
 #np{position:fixed;inset:0;z-index:4;display:none;flex-direction:column;gap:12px;padding:calc(10px + env(safe-area-inset-top,0px)) 24px calc(20px + env(safe-area-inset-bottom,0px));overflow-y:auto}
@@ -71,8 +71,10 @@ nav button.on{color:#fff;font-weight:800;box-shadow:inset 0 3px var(--acc)}
 #ytwrap.full{display:block;left:50%;transform:translateX(-50%);top:calc(66px + env(safe-area-inset-top,0px));width:var(--yw);height:calc(var(--yw)*.5625)}
 .ysp{height:calc(var(--yw)*.5625);margin:6px 0}
 .hd{display:flex;justify-content:space-between;align-items:flex-start}.hd h1{margin:0 0 12px}.hd button{font-size:20px;padding:4px 8px}
+.big,.chip.on,.pbtn{color:#1a0f08}
+.brand{font:800 12px system-ui,sans-serif;letter-spacing:3px;color:var(--acc);margin-bottom:2px}
 </style></head><body>
-<header><div class="hd"><h1 id="hi">Hola</h1><div><button data-tab="historial" aria-label="Historial">🕘</button><button data-tab="ajustes" aria-label="Ajustes">⚙</button></div></div><input id="q" type="search" placeholder="Buscar canción, artista o álbum" aria-label="Buscar"><div id="msg" class="note" role="status"></div></header>
+<header><div class="hd"><div><div class="brand">SAPOCLAUDE</div><h1 id="hi">Hola</h1></div><div><button data-tab="historial" aria-label="Historial">🕘</button><button data-tab="ajustes" aria-label="Ajustes">⚙</button></div></div><input id="q" type="search" placeholder="Buscar canción, artista o álbum" aria-label="Buscar"><div id="msg" class="note" role="status"></div></header>
 <main id="main"></main>
 <section id="pl" aria-label="Reproductor"></section>
 <nav id="nav"></nav>
@@ -142,9 +144,9 @@ async function doSearch(){if(!navigator.onLine){loading=false;R=[];setMsg('Sin c
  loading=false;view()}
 
 /* ---------- Vistas ---------- */
-const hue=s=>{let h=0;for(const c of String(s||'x'))h=(h*31+c.charCodeAt(0))%360;return h};
+const hue=s=>{let h=0;for(const c of String(s||'x'))h=(h*31+c.charCodeAt(0))%360;return 10+h%35};
 const imgOf=t=>t.src==='nd'?(t.cv?ndURL('getCoverArt',{id:t.cv,size:300}):''):(t.img||'');
-const cover=(t,c='')=>{const h=hue(t.al||t.a),u=imgOf(t);return `<div class="cv ${c}" style="background:linear-gradient(135deg,hsl(${h} 70% 48%),hsl(${(h+60)%360} 70% 28%))">${esc((t.t||'?')[0])}${u?`<img src="${esc(u)}" alt="" loading="lazy" onerror="this.remove()">`:''}</div>`};
+const cover=(t,c='')=>{const h=hue(t.al||t.a),u=imgOf(t);return `<div class="cv ${c}" style="background:linear-gradient(135deg,hsl(${h} 70% 48%),hsl(${h+15} 70% 28%))">${esc((t.t||'?')[0])}${u?`<img src="${esc(u)}" alt="" loading="lazy" onerror="this.remove()">`:''}</div>`};
 const row=(t,c,i)=>{const f=S.fav.some(x=>x.k===t.k),id=c+'.'+i;
  return `<div class="row ${cur()&&cur().k===t.k?'on':''}" data-play="${id}">${cover(t)}<div class="m"><b>${esc(t.t)}</b><span>${esc(t.a)}, ${esc(t.al)}</span></div><span class="tag">${DL.has(t.k)?'⬇ ':''}${SRC[t.src].name}</span><button data-fav="${id}" class="${f?'f':''}" aria-label="${f?'Quitar de favoritos':'Guardar en favoritos'}">${f?'♥':'♡'}</button><button data-add="${id}" aria-label="Añadir a una lista">+</button></div>`};
 const card=(t,c,i)=>`<div class="card" data-play="${c}.${i}">${cover(t)}<b>${esc(t.t)}</b><span>${esc(t.a)}</span></div>`;
@@ -253,7 +255,7 @@ function player(){const t=cur(),np=$('np');ytWrap();
  if(!t){$('pl').innerHTML=`<div class="note">Elige una canción para empezar.</div>`;np.className='';return}
  const pp=isPaused()?'▶':'⏸',f=S.fav.some(x=>x.k===t.k),h=hue(t.al||t.a);
  $('pl').innerHTML=`<div class="t"><div class="grow" data-act="open">${cover(t,'s')}<div class="m"><b>${esc(t.t)}</b><span>${esc(t.a)}</span></div></div><button class="pbtn sm" data-act="pp" aria-label="Reproducir o pausar">${pp}</button></div><div class="bar thin"><i></i></div>`;
- np.className=full?'show':'';np.style.background=`linear-gradient(180deg,hsl(${h} 55% 32%),#0e0e13 75%)`;
+ np.className=full?'show':'';np.style.background=`linear-gradient(180deg,hsl(${h} 55% 32%),#0a0a0a 75%)`;
  np.innerHTML=full?`<button class="x" data-act="closefull" aria-label="Cerrar">⌄</button>${t.src==='yt'?'<div class="ysp"></div>':cover(t,'xl')}<div class="ti"><div class="m"><b>${esc(t.t)}</b><span>${esc(t.a)}, ${esc(t.al)}</span></div><button data-act="favcur" class="${f?'f':''}" aria-label="Favorito">${f?'♥':'♡'}</button><button data-act="addcur" aria-label="Añadir a una lista">+</button></div><div><div class="bar"><i></i></div><div class="times"><span class="tm">0:00</span><span class="tt">0:00</span></div></div><div class="ctl"><button data-act="shuf" class="${S.shuf?'on':''}" aria-pressed="${S.shuf}">Azar</button><button data-act="prev" aria-label="Anterior">⏮</button><button class="pbtn" data-act="pp" aria-label="Reproducir o pausar">${pp}</button><button data-act="next" aria-label="Siguiente">⏭</button></div>${dlBtn(t)}${t.src==='it'?'<p class="note">Avance de 30 segundos.</p>':''}${t.src==='yt'?'<p class="note">Suena con YouTube: se detiene si apagas la pantalla.</p>':''}${ext(t.t+' '+t.a,t.link)}`:'';
  sync()}
 function play(i,q){P.q=q;P.i=i;const t=q[i];setMsg('');
